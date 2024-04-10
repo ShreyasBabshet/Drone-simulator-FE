@@ -6,3 +6,40 @@ Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+File Uploading:
+
+Please upload the text file having array of objects-
+
+example:
+
+[
+{
+"startLatitude": "12.9716",
+"startLongitude": "77.5946",
+"endLatitude": "18.5204",
+"endLongitude": "73.8567",
+"time": "20"
+},
+{
+"startLatitude": "12.9716",
+"startLongitude": "77.5946",
+"endLatitude": "44.6844",
+"endLongitude": "10.9560",
+"time": "20"
+},
+{
+"startLatitude": "44.6844",
+"startLongitude": "10.9560",
+"endLatitude": "33.9240",
+"endLongitude": "38.7336",
+"time": "20"
+},
+{
+"startLatitude": "44.6844",
+"startLongitude": "10.9560",
+"endLatitude": "44.6844",
+"endLongitude": "10.9560",
+"time": "20"
+}
+]

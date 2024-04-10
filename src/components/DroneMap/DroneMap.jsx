@@ -165,7 +165,6 @@ const DroneMap = () => {
         setTimeout(animateMarker, stepDuration);
       }
     };
-
     animateMarker();
   };
 
@@ -237,6 +236,43 @@ const DroneMap = () => {
     setFormData(initialFormData);
   };
 
+  const plotMap = (formData) => {
+    const startLat = parseFloat(formData.startLatitude);
+    const startLng = parseFloat(formData.startLongitude);
+    const destLat = parseFloat(formData.endLatitude);
+    const destLng = parseFloat(formData.endLongitude);
+    const time = parseFloat(formData.time);
+
+    setFormData({
+      startLatitude: startLat,
+      startLongitude: startLng,
+      destLongitude: destLat,
+      destLatitude: destLng,
+      time: time,
+    });
+
+    if (map) {
+      if (startMarker) {
+        startMarker.remove();
+      }
+      if (destMarker) {
+        destMarker.remove();
+      }
+
+      const newStartMarker = new mapboxgl.Marker()
+        .setLngLat([startLng, startLat])
+        .addTo(map);
+
+      const newDestMarker = new mapboxgl.Marker({ color: "green" })
+        .setLngLat([destLat, destLng])
+        .addTo(map);
+
+      setStartMarker(newStartMarker);
+      setDestMarker(newDestMarker);
+      createLine();
+    }
+  };
+
   const createDroneElement = () => {
     const element = document.createElement("div");
     element.className = styles.droneMarker;
@@ -255,6 +291,12 @@ const DroneMap = () => {
       ...prevData,
       [name]: updatedValue,
     }));
+  };
+
+  const handleUploadedContent = (uploadedData) => {
+    uploadedData?.forEach((file) => {
+      plotMap(file);
+    });
   };
 
   return (
@@ -281,7 +323,7 @@ const DroneMap = () => {
           />
         </Modal>
         <Modal isOpen={isOpenFileUpload} onRequestClose={closeModal}>
-          <FileUpload />
+          <FileUpload onFileUpload={handleUploadedContent} />
         </Modal>
         <div className={styles.wrapper}>
           <div id="map" style={{ height: "100vh" }}></div>
